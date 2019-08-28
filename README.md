@@ -13,3 +13,5 @@
 |[subject-5-develop-specifications](./subject-5-develop-specifications)|专题五 devops规范|
 |[subject-5-jenkins](./subject-5-jenkins)|专题五 jenkins|
 |[subject-5-cloudstudy](./subject-5-cloudstudy)|专题五 后端项目实战|
+|[subject-5-zabbix](./subject-5-zabbix)|专题五 zabbix线上监控|
+|[subject-5-git](./subject-5-git)|专题五 git版本管理工具|
