@@ -17,6 +17,10 @@ import org.springframework.stereotype.Component;
 @Component("snowflakeIdWorker")
 public class SnowflakeIdWorker {
 
+    public SnowflakeIdWorker() {
+        super();
+    }
+
     // ==============================Fields===========================================
     /** 开始时间截 (2015-01-01) */
     private final long twepoch = 1420041600000L;

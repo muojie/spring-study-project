@@ -11,8 +11,8 @@
         </commentGenerator>
 
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://47.75.201.78:3306/cloud_classroom" userId="root"
-                        password="123456"/>
+                        connectionURL="jdbc:mysql://mysql.dn.com:3306/cloud_classroom" userId="root"
+                        password="root"/>
 
         <javaModelGenerator targetPackage="com.dong.nao.order.bean"
                             targetProject="d:/workspace/cloud-classroom/src/main/java">
@@ -67,7 +67,7 @@
         <!--<table tableName="course" domainObjectName="Course" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
         <!--<table tableName="lesson_schedule" domainObjectName="LessonSchedule" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
         <!--<table tableName="user_study" domainObjectName="UserStudy" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
-        <!--<table tableName="order" domainObjectName="Order" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
+        <!--<table tableName="course" domainObjectName="Order" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
 
 
         <table tableName="1"></table>

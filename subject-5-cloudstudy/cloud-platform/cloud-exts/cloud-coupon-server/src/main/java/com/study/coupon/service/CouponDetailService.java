@@ -1,22 +1,17 @@
 package com.study.coupon.service;
 
 import com.study.coupon.bean.TbCouponDetail;
-import com.study.coupon.bean.TbCouponDetailExample;
-import com.study.coupon.dao.TbCouponDetailMapper;
-import com.study.coupon.dao.TbCouponMapper;
+import com.study.coupon.mapper.TbCouponDetailMapper;
+import com.study.coupon.mapper.TbCouponMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.dromara.hmily.annotation.Hmily;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import com.study.coupon.common.CouponConstants.CouponDetailStatusEnum;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
 import java.util.List;
 
 @Service
-@Transactional
 @Slf4j
 public class CouponDetailService {
 
@@ -26,10 +21,6 @@ public class CouponDetailService {
     @Autowired
     TbCouponMapper tbCouponMapper;
 
-    @Autowired
-    StringRedisTemplate stringRedisTemplate;
-
-
     /**
      * 将订单与该用户对应的优惠券绑定
      *
@@ -38,12 +29,11 @@ public class CouponDetailService {
      * @param userId         用户ID
      */
     @Hmily(confirmMethod = "confirmLockCouponDetail", cancelMethod = "canceLockCouponDetail")
-    public TbCouponDetail lockCouponDetail(String couponDetailId, String orderId, String userId) {
-        TbCouponDetailExample example = new TbCouponDetailExample();
-        TbCouponDetailExample.Criteria criteria = example.createCriteria();
-        criteria.andCouponDetailIdEqualTo(couponDetailId);
-        criteria.andCouponDetailStatusEqualTo(CouponDetailStatusEnum.UnUsed.getStatus());
-        criteria.andUserIdEqualTo(Integer.valueOf(userId));
+    public TbCouponDetail lockCouponDetail(Long couponDetailId, Long orderId, String userId) {
+        TbCouponDetail example = new TbCouponDetail();
+        example.setCouponId(couponDetailId);
+        example.setCouponDetailStatus(CouponDetailStatusEnum.UnUsed.getStatus());
+        example.setUserId(Integer.parseInt(userId));
 
         TbCouponDetail tbCouponDetailUpdate = new TbCouponDetail();
         tbCouponDetailUpdate.setOrderId(orderId);
@@ -73,13 +63,12 @@ public class CouponDetailService {
      * @param orderId        订单号
      * @param userId         用户ID
      */
-    public TbCouponDetail releaseCouponDetail(String couponDetailId, String orderId, String userId) {
-        TbCouponDetailExample example = new TbCouponDetailExample();
-        TbCouponDetailExample.Criteria criteria = example.createCriteria();
-        criteria.andCouponDetailIdEqualTo(couponDetailId);
-        criteria.andOrderIdEqualTo(orderId);
-        criteria.andCouponDetailStatusEqualTo(CouponDetailStatusEnum.Used.getStatus());
-        criteria.andUserIdEqualTo(Integer.valueOf(userId));
+    public TbCouponDetail releaseCouponDetail(Long couponDetailId, Long orderId, String userId) {
+        TbCouponDetail example = new TbCouponDetail();
+        example.setCouponDetailId(couponDetailId);
+        example.setOrderId(orderId);
+        example.setCouponDetailStatus(CouponDetailStatusEnum.Used.getStatus());
+        example.setUserId(Integer.parseInt(userId));
 
         TbCouponDetail tbCouponDetailUpdate = new TbCouponDetail();
         tbCouponDetailUpdate.setCouponDetailStatus(CouponDetailStatusEnum.UnUsed.getStatus());
@@ -98,10 +87,9 @@ public class CouponDetailService {
      * @return
      */
     public List<TbCouponDetail> getUnUsedCouponDetailByUserId(String userId) {
-        TbCouponDetailExample example = new TbCouponDetailExample();
-        TbCouponDetailExample.Criteria criteria = example.createCriteria();
-        criteria.andUserIdEqualTo(Integer.valueOf(userId));
-        criteria.andCouponDetailStatusEqualTo(CouponDetailStatusEnum.UnUsed.getStatus());
+        TbCouponDetail example = new TbCouponDetail();
+        example.setCouponDetailStatus(CouponDetailStatusEnum.Used.getStatus());
+        example.setUserId(Integer.parseInt(userId));
         List<TbCouponDetail> tbCouponDetails = tbCouponDetailMapper.selectByExample(example);
         return tbCouponDetails;
     }

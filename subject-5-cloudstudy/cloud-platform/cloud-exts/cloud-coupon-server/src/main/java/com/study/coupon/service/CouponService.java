@@ -2,24 +2,20 @@ package com.study.coupon.service;
 
 import com.study.coupon.bean.TbCoupon;
 import com.study.coupon.bean.TbCouponDetail;
-import com.study.coupon.bean.TbCouponExample;
 import com.study.coupon.common.CouponConstants;
-import com.study.coupon.dao.TbCouponDetailMapper;
-import com.study.coupon.dao.TbCouponMapper;
+import com.study.coupon.mapper.TbCouponDetailMapper;
+import com.study.coupon.mapper.TbCouponMapper;
+import com.study.security.id.IGenerateIdService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
 
 @Service
-@Transactional(rollbackFor = Exception.class)
 public class CouponService {
 
     @Autowired
@@ -34,6 +30,9 @@ public class CouponService {
     @Autowired
     DefaultRedisScript<Long> couponAcquireRedisScript;
 
+    @Autowired
+    IGenerateIdService redisGenerateIdService;
+
     /**
      * 秒杀具体实现
      *
@@ -41,7 +40,7 @@ public class CouponService {
      * @param userId   用户ID
      * @return
      */
-    public boolean acquire(String couponId, final String userId) {
+    public boolean acquire(Long couponId, final String userId) {
         // 0、 此用户不能重复领取（布隆过滤器）
         // 1、令牌桶策略，过滤无效用户
 
@@ -60,7 +59,7 @@ public class CouponService {
         }
         // 2. 增加记录
         TbCouponDetail tbCouponDetail = new TbCouponDetail();
-        tbCouponDetail.setCouponDetailId(UUID.randomUUID().toString());
+        tbCouponDetail.setCouponDetailId(redisGenerateIdService.getId());
         tbCouponDetail.setCouponId(couponId);
         tbCouponDetail.setUserId(Integer.valueOf(userId));
         tbCouponDetail.setCouponDetailStatus(CouponConstants.CouponDetailStatusEnum.UnUsed.getStatus()); // 0 - 未使用
@@ -72,18 +71,15 @@ public class CouponService {
      * 新增
      */
     public void addCoupon(TbCoupon tbCoupon) {
-        tbCoupon.setCouponId(UUID.randomUUID().toString());
+        tbCoupon.setCouponId(redisGenerateIdService.getId());
         tbCouponMapper.insert(tbCoupon);
     }
 
     /**
      * 删除
      */
-    public void removeCoupon(String couponId) {
-        TbCouponExample example = new TbCouponExample();
-        TbCouponExample.Criteria criteria = example.createCriteria();
-        criteria.andCouponIdEqualTo(couponId);
-        tbCouponMapper.deleteByExample(example);
+    public void removeCoupon(Long couponId) {
+        tbCouponMapper.deleteById(couponId);
     }
 
     /**
@@ -92,10 +88,9 @@ public class CouponService {
      * @return
      */
     public List<TbCoupon> queryCouponList() {
-        TbCouponExample example = new TbCouponExample();
-        TbCouponExample.Criteria criteria = example.createCriteria();
-        criteria.andStartTimeLessThanOrEqualTo(new Date());
-        criteria.andEndTimeGreaterThanOrEqualTo(new Date());
+        TbCoupon example = new TbCoupon();
+        example.setStartTime(new Date());
+        example.setEndTime(new Date());
         List<TbCoupon> tbCoupons = tbCouponMapper.selectByExample(example);
         return tbCoupons;
     }
@@ -106,10 +101,9 @@ public class CouponService {
      *
      * @return 优惠券内容
      */
-    public TbCoupon queryCouponById(String couponId) {
-        TbCouponExample example = new TbCouponExample();
-        TbCouponExample.Criteria criteria = example.createCriteria();
-        criteria.andCouponIdEqualTo(couponId);
+    public TbCoupon queryCouponById(Long couponId) {
+        TbCoupon example = new TbCoupon();
+        example.setCouponId(couponId);
         List<TbCoupon> tbCoupons = tbCouponMapper.selectByExample(example);
         return tbCoupons == null ? null : tbCoupons.get(0);
     }

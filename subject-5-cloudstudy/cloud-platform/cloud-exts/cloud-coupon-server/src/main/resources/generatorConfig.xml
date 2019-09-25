@@ -21,12 +21,12 @@
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
 
-        <sqlMapGenerator targetPackage="com.study.coupon.dao"
+        <sqlMapGenerator targetPackage="com.study.coupon.mapper"
                          targetProject="D:\cloud\netease_git\java-Q1801\coupon-server\src\main\java">
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
 
-        <javaClientGenerator targetPackage="com.study.coupon.dao"
+        <javaClientGenerator targetPackage="com.study.coupon.mapper"
                              targetProject="D:\cloud\netease_git\java-Q1801\coupon-server\src\main\java"
                              type="XMLMAPPER">
             <property name="enableSubPackages" value="true"/>

@@ -6,5 +6,5 @@ docker build -t 192.168.100.249/study/cloud-classroom-order:1.0 .
 docker push 192.168.100.249/study/cloud-classroom-order:1.0
 
 # 或者推送到hub.docker上
-#docker build -t xiaochunping/cloud-classroom-order:1.0 .
-#docker push xiaochunping/cloud-classroom-order:1.0
+#docker build -t xiaochunping/cloud-classroom-course:1.0 .
+#docker push xiaochunping/cloud-classroom-course:1.0

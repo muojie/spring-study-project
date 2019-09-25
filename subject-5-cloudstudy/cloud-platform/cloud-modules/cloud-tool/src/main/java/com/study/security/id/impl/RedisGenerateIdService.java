@@ -18,7 +18,7 @@ public class RedisGenerateIdService implements IGenerateIdService {
 
     @Override
     public Long getOrderId() {
-        String key = "163:study:order:id"; // key = 系统名：+ 模块：+ 功能 ：+ key
+        String key = "163:study:course:id"; // key = 系统名：+ 模块：+ 功能 ：+ key
         return redisTemplate.opsForValue().increment(key, -1);
     }
 

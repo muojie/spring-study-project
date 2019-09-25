@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.study.order.mapper.UserStudyMapper" >
-  <resultMap id="BaseResultMap" type="com.study.order.bean.UserStudy" >
+<mapper namespace="com.study.course.mapper.UserStudyMapper" >
+  <resultMap id="BaseResultMap" type="com.study.course.entity.UserStudy" >
     <id column="id" property="id" jdbcType="VARCHAR" />
     <result column="course_id" property="courseId" jdbcType="VARCHAR" />
     <result column="user_id" property="userId" jdbcType="INTEGER" />
@@ -51,7 +51,7 @@
     delete from user_study
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.study.order.bean.UserStudy" >
+  <insert id="insert" parameterType="com.study.course.entity.UserStudy" >
     <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String">
       select UUID()
     </selectKey>
@@ -60,7 +60,7 @@
     values (#{id,jdbcType=VARCHAR}, #{courseId,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER},
     #{startTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.study.order.bean.UserStudy" >
+  <insert id="insertSelective" parameterType="com.study.course.entity.UserStudy" >
     insert into user_study
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -91,7 +91,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.study.order.bean.UserStudy" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.study.course.entity.UserStudy" >
     update user_study
     <set >
       <if test="courseId != null" >
@@ -106,7 +106,7 @@
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.study.order.bean.UserStudy" >
+  <update id="updateByPrimaryKey" parameterType="com.study.course.entity.UserStudy" >
     update user_study
     set course_id = #{courseId,jdbcType=VARCHAR},
       user_id = #{userId,jdbcType=INTEGER},

@@ -107,6 +107,12 @@
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
 
+        <!-- elasticsearch -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
+        </dependency>
+
         <!-- rabbitMQ -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -153,17 +159,23 @@
         <dependency>
             <groupId>cloud.study</groupId>
             <artifactId>cloud-auth-client</artifactId>
-            <version>2.1-SNAPSHOT</version>
+            <version>2.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>cloud.study</groupId>
             <artifactId>cloud-common</artifactId>
-            <version>2.1-SNAPSHOT</version>
+            <version>2.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>cloud.study</groupId>
             <artifactId>cloud-auth-common</artifactId>
-            <version>2.1-SNAPSHOT</version>
+            <version>2.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>cloud.study</groupId>
+            <artifactId>cloud-tool</artifactId>
+            <version>2.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
 

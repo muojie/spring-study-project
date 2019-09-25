@@ -34,8 +34,8 @@ public class AutoConfiguration {
         return new UserAuthConfig();
     }
 
-//    @ConditionalOnClass({org.springframework.web.servlet.handler.HandlerInterceptorAdapter.class,
-//            org.springframework.web.servlet.config.annotation.WebMvcConfigurer.class})
+//    @ConditionalOnClass({org.springframework.controller.servlet.handler.HandlerInterceptorAdapter.class,
+//            org.springframework.controller.servlet.config.annotation.WebMvcConfigurer.class})
 //    static class AuthClientInterceptorConfiguration {
 //        @Bean
 //        ServiceAuthRestInterceptor serviceAuthRestInterceptor() {
@@ -49,12 +49,12 @@ public class AutoConfiguration {
 //
 //        // 增加权限验证的拦截器
 //        @Bean
-//        public org.springframework.web.servlet.config.annotation.WebMvcConfigurer authInterceptorWebMvcConfigurer(ServiceAuthRestInterceptor serviceAuthRestInterceptor,
+//        public org.springframework.controller.servlet.config.annotation.WebMvcConfigurer authInterceptorWebMvcConfigurer(ServiceAuthRestInterceptor serviceAuthRestInterceptor,
 //                                                                                                                  UserAuthRestInterceptor userAuthRestInterceptor,
 //                                                                                                                  CloudAuthClientProperties cloudAuthClientProperties) {
-//            return new org.springframework.web.servlet.config.annotation.WebMvcConfigurer() {
+//            return new org.springframework.controller.servlet.config.annotation.WebMvcConfigurer() {
 //                @Override
-//                public void addInterceptors(org.springframework.web.servlet.config.annotation.InterceptorRegistry registry) {
+//                public void addInterceptors(org.springframework.controller.servlet.config.annotation.InterceptorRegistry registry) {
 //                    /* 服务校验 */
 //                    registry.addInterceptor(serviceAuthRestInterceptor).
 //                            addPathPatterns(cloudAuthClientProperties.getIncludePathPatterns());

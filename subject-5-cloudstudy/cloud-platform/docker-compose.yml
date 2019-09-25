@@ -1,58 +1,71 @@
-version: '2'
+version:  '3'
 services:
-  eureka:
-    image: ag/ace-center
-    ports:
-      - "8761:8761"
-  ace-auth:
-    image: ag/ace-auth
+  # 定义auth服务
+  cloud-auth:
+    image: 192.168.100.249/study/cloud-auth:1.0
     ports:
       - "9777:9777"
-    depends_on:
-      - eureka
+    networks:
+      - cloud
     environment:
-      - EUREKA_HOST=eureka
-      - EUREKA_PORT=8761
-      - REDIS_HOST=redis
+      - REDIS_HOST=192.168.100.241
       - REDIS_PORT=6379
-      - MYSQL_HOST=mysql
+      - MYSQL_HOST=192.168.100.240
       - MYSQL_PORT=3306
-      - RABBIT_MQ_HOST=rabbitmq
-      - RABBIT_MQ_HOST=5672
-  ace-admin:
-    image: ag/ace-admin
+      - RABBIT_MQ_HOST=192.168.100.240
+      - RABBIT_MQ_PORT=5672
+    #cloud-redis:
+    #  image: redis
+    #  ports:
+    #    - "6379:6379"
+    #volumes:
+    #  - ./redis-data:/data
+  cloud-admin:
+    image: 192.168.100.249/study/cloud-admin:1.0
     ports:
       - "8762:8762"
+    networks:
+      - cloud
+    depends_on:
+      - cloud-auth
     links:
-      - ace-auth
-    entrypoint: ./wait-for-it.sh ace-auth:9777 -t 600 --
-    command: java -Djava.security.egd=file:/dev/./urandom -jar /app.jar
+      - cloud-auth
     environment:
-      - EUREKA_HOST=eureka
-      - EUREKA_PORT=8761
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
-      - MYSQL_HOST=mysql
+      - MYSQL_HOST=192.168.100.240
       - MYSQL_PORT=3306
-      - RABBIT_MQ_HOST=rabbitmq
-      - RABBIT_MQ_HOST=5672
-  ace-gate:
-    image: ag/ace-gate
+      - RABBIT_MQ_HOST=192.168.100.240
+      - RABBIT_MQ_PORT=5672
+  cloud-gateway:
+    image: 192.168.100.249/study/cloud-gateway:1.0
     ports:
       - "8765:8765"
+    networks:
+      - cloud
+    depends_on:
+      - cloud-auth
     links:
-      - ace-auth
-    entrypoint: ./wait-for-it.sh ace-auth:9777 -t 600 --
-    command: java -Djava.security.egd=file:/dev/./urandom -jar /app.jar
+      - cloud-auth
     environment:
-      - EUREKA_HOST=eureka
-      - EUREKA_PORT=8761
-      - RABBIT_MQ_HOST=rabbitmq
-      - RABBIT_MQ_HOST=5672
-  redis:
-    image: redis
-    restart: always
-    ports:
-      - "6379:6379"
-    volumes:
-      - ./.docker/redis:/var/lib/redis
+      - RABBIT_MQ_HOST=192.168.100.240
+      - RABBIT_MQ_PORT=5672
+    # 限制资源的使用
+    deploy:
+      resources:
+        limits:
+          cpus: '0.1'
+          memory: 200M
+
+# docker-compose.yml文件会读取系统以及本目录下的.env文件变量
+# .env文件内容
+# redis
+# REDIS_DIR=./redis
+#
+# mysql
+# MYSQL_DIR=./mysql
+# MYSQL_ROOT_PASSWORD=root
+
+# 自定义网络
+networks:
+  # 自定义网络名字
+  cloud:
+    driver: bridge

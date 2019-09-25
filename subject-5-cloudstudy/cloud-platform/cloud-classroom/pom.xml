@@ -22,7 +22,7 @@
     <modules>
         <module>cloud-classroom-course</module>
         <module>cloud-classroom-order</module>
-        <module>cloud-classroom-essearch</module>
+        <!--<module>cloud-classroom-essearch</module>-->
         <module>spring-boot-admin</module>
         <module>cloud-oss</module>
     </modules>

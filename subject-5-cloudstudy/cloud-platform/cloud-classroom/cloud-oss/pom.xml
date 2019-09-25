@@ -99,11 +99,6 @@
             <version>0.9.0.RELEASE</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
-
         <!-- 注意：Zipkin 不再推荐我们来自定义 Server 端，在最新版本的 Spring Cloud 依赖管理里已经找不到 Zipkin-server 了 ，
              根本就不需要自己新建一个 Zipkin-server 服务，网上的各种教程都数互相抄的，请无视 -->
         <!-- 服务链路追踪 -->
