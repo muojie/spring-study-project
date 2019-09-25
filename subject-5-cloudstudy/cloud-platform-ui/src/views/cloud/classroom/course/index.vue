@@ -119,8 +119,6 @@
               </el-date-picker>
         </el-form-item>
 
-
-
         <el-form-item label="课程图片" ref="uploadElement" prop="imageUrl">
           <el-input v-model="form.imageUrl" v-if="false"></el-input>
           <el-upload
@@ -316,7 +314,7 @@
         listLoading: true,
         listQuery: {
           page: 1,
-          limit: 20,
+          limit: 10,
           name: undefined
         },
         dialogFormVisible: false,
