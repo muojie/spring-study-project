@@ -2,7 +2,6 @@ package com.study.course.elasticsearch.repository;
 
 import com.study.course.entity.Course;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
-import org.springframework.stereotype.Repository;
 
 /**
  * @ClassName CourseDocumentRepository

@@ -21,6 +21,8 @@ public interface CourseMapper {
 
     int updateByPrimaryKey(Course record);
 
+    List<Course> getAllCourse();
+
     List<Course> getAllCourseOfTeacher(String userId);
 
     List<Course> getCoursesByPage(@Param("start") int start, @Param("size") Integer size, @Param("key") String key);

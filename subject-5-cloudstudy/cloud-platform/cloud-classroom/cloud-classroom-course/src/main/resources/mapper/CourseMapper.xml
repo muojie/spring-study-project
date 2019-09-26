@@ -20,6 +20,12 @@
         start_time, update_time
     </sql>
 
+    <select id="getAllCourse" resultMap="BaseResultMap" >
+        select
+        <include refid="Base_Column_List" />
+        from course
+    </select>
+
     <select id="getCoursesByPage" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>

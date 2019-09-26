@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.study.course.mapper.OrderMapper" >
-  <resultMap id="BaseResultMap" type="com.study.course.bean.Order" >
+<mapper namespace="com.study.order.mapper.OrderMapper" >
+  <resultMap id="BaseResultMap" type="com.study.order.bean.Order" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="order_time" property="orderTime" jdbcType="TIMESTAMP" />
     <result column="phone" property="phone" jdbcType="VARCHAR" />
@@ -48,17 +48,19 @@
   </select>
 
 
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select
     <include refid="Base_Column_List" />
     from course_order
-    where id = #{id,jdbcType=VARCHAR}
+    where id = #{id}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from course_order
-    where id = #{id,jdbcType=VARCHAR}
+    where id = #{id}
   </delete>
-  <insert id="insert" parameterType="com.study.course.bean.Order" >
+
+  <insert id="insert" parameterType="com.study.order.bean.Order" >
     <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String">
       select UUID()
     </selectKey>
@@ -69,7 +71,8 @@
     #{state,jdbcType=INTEGER}, #{total,jdbcType=DOUBLE}, #{userId,jdbcType=INTEGER},
     #{courseId,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.study.course.bean.Order" >
+
+  <insert id="insertSelective" parameterType="com.study.order.bean.Order" >
     insert into course_order
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -118,7 +121,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.study.course.bean.Order" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.study.order.bean.Order" >
     update course_order
     <set >
       <if test="orderTime != null" >
@@ -142,7 +145,7 @@
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.study.course.bean.Order" >
+  <update id="updateByPrimaryKey" parameterType="com.study.order.bean.Order" >
     update course_order
     set order_time = #{orderTime,jdbcType=TIMESTAMP},
       phone = #{phone,jdbcType=VARCHAR},

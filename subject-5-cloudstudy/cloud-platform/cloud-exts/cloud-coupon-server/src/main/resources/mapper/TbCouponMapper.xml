@@ -30,7 +30,7 @@
     delete from tb_coupon where id = #{couponId}
   </delete>
 
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.study.coupon.bean.TbCouponExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.study.coupon.bean.TbCoupon" >
     select
     <if test="distinct" >
       distinct

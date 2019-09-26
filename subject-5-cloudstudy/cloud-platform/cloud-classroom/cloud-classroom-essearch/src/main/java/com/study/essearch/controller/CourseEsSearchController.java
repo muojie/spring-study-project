@@ -102,7 +102,7 @@ public class CourseEsSearchController {
     @GetMapping("query_hit")
     //public List<Map<String, Object>> queryHit(@RequestParam String keyword, @RequestParam String indexName, @RequestParam String fields) {
     public List<Map<String, Object>> queryHit(@RequestParam String keyword) {
-        String indexName = "course";
+        String indexName = "order";
         //String fields = "name,synopsis,description,classification";
         String fields = "name";
 

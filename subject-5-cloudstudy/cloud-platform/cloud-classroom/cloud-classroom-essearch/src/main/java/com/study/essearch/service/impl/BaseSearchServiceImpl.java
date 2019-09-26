@@ -45,7 +45,7 @@ public class BaseSearchServiceImpl<T> implements BaseSearchService<T> {
         SearchQuery searchQuery = new NativeSearchQueryBuilder()
                 .withQuery(new QueryStringQueryBuilder(keyword))
                 .withSort(SortBuilders.scoreSort().order(SortOrder.DESC))
-                // .withSort(new FieldSortBuilder("createTime").order(SortOrder.DESC))
+                // .withSort(new FieldSortBuilder("createTime").course(SortOrder.DESC))
                 .build();
 
         return elasticsearchTemplate.queryForList(searchQuery, clazz);

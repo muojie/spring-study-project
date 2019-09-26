@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * 课程
@@ -79,6 +80,12 @@ public class CourseController {
         return courseService.getCourse(id);
     }
 
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    public List<Course> getAllCourses() {
+        List<Course> Courses = courseService.getAllCourse();
+        return Courses;
+    }
+
     @RequestMapping(value = "/page/list", method = RequestMethod.GET)
     public Map<String, Object> getCoursesByPage(@RequestParam(defaultValue = "1") Integer page,
                                                 @RequestParam(defaultValue = "10") Integer limit, String name) {
@@ -138,6 +145,11 @@ public class CourseController {
             return RespBean.ok("删除成功!");
         }
         return RespBean.error("删除失败!");
+    }
+
+    @GetMapping("/names")
+    public Map<Long, String> getCourseNames(){
+        return this.getAllCourses().stream().collect(Collectors.toMap(item -> item.getId(), item -> item.getName()));
     }
 
 }

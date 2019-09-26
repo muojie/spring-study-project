@@ -25,6 +25,10 @@ public class CourseService {
         return courseMapper.insert(course);
     }
 
+    public List<Course> getAllCourse() {
+        return courseMapper.getAllCourse();
+    }
+
     public List<Course> getCoursesByPage(Integer page, Integer size, String name) {
         int start = (page - 1) * size;
         return courseMapper.getCoursesByPage(start, size, name);
