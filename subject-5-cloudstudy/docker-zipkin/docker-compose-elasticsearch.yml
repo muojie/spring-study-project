@@ -9,7 +9,7 @@ version: '2'
 services:
   # Switch storage type to Elasticsearch
   zipkin:
-    image: openzipkin/zipkin
+    image: openzipkin/zipkin:2.17
     container_name: zipkin
     ports:
       - 9411:9411
@@ -21,7 +21,7 @@ services:
       - STORAGE_TYPE=elasticsearch
       # Point the zipkin at the storage backend
       # - ES_HOSTS=elasticsearch
-      - ES_HOSTS=192.168.100.249
+      - ES_HOSTS=192.168.100.249:9200
       # Uncomment to see requests to and from elasticsearch
       # - ES_HTTP_LOGGING=BODY
       - ES_HTTP_LOGGING=BASIC
