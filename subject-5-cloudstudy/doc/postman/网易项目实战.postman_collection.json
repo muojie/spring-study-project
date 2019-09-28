@@ -9,234 +9,380 @@
 			"name": "es",
 			"item": [
 				{
-					"name": "新增",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"id\": \"111\",\r\n  \"name\": \"allen老师测试课程\",\r\n  \"image\": \"http://www.study.163.com\",\r\n  \"price\": 998.0,\r\n  \"synopsis\": \"\",\r\n  \"classification\": \"\",\r\n  \"teacherId\": \"\",\r\n  \"status\": 1,\r\n  \"endTime\": \"2019-08-15 19:18:07\",\r\n  \"startTime\": \"2019-07-15 19:18:07\"\r\n}"
-						},
-						"url": {
-							"raw": "http://localhost:8085/cloud/classroom/es/course/save",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8085",
-							"path": [
-								"cloud",
-								"classroom",
-								"es",
-								"course",
-								"save"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "根据id查询",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8085/cloud/classroom/es/course/get/111",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8085",
-							"path": [
-								"cloud",
-								"classroom",
-								"es",
-								"course",
-								"get",
-								"111"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "获取全部",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8085/cloud/classroom/es/course/get_all",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8085",
-							"path": [
-								"cloud",
-								"classroom",
-								"es",
-								"course",
-								"get_all"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "根据id删除",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": []
-						},
-						"url": {
-							"raw": "http://localhost:8085/cloud/classroom/es/course/delete/111",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8085",
-							"path": [
-								"cloud",
-								"classroom",
-								"es",
-								"course",
-								"delete",
-								"111"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "清空记录",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": []
-						},
-						"url": {
-							"raw": "http://localhost:8085/cloud/classroom/es/course/delete_all",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8085",
-							"path": [
-								"cloud",
-								"classroom",
-								"es",
-								"course",
-								"delete_all"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "搜索",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"id\": \"111\",\r\n  \"name\": \"allen老师测试课程\",\r\n  \"image\": \"http://www.study.163.com\",\r\n  \"price\": 998.0,\r\n  \"synopsis\": \"\",\r\n  \"classification\": \"\",\r\n  \"teacherId\": \"\",\r\n  \"status\": 1,\r\n  \"endTime\": \"2019-08-15 19:18:07\",\r\n  \"startTime\": \"2019-07-15 19:18:07\"\r\n}"
-						},
-						"url": {
-							"raw": "http://localhost:8085/cloud/classroom/es/course/query/测试",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8085",
-							"path": [
-								"cloud",
-								"classroom",
-								"es",
-								"course",
-								"query",
-								"测试"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "高亮搜索",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"url": {
-							"raw": "http://localhost:8085/cloud/classroom/es/course/query_hit?keyword=测试",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8085",
-							"path": [
-								"cloud",
-								"classroom",
-								"es",
-								"course",
-								"query_hit"
-							],
-							"query": [
-								{
-									"key": "keyword",
-									"value": "测试"
+					"name": "book",
+					"item": [
+						{
+							"name": "查询所有",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8084/book/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8084",
+									"path": [
+										"book",
+										""
+									]
 								}
-							]
+							},
+							"response": []
+						},
+						{
+							"name": "新增",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": \"666\",\r\n  \"name\": \"网易云课题java高级开发工程师微专业\",\r\n  \"author\": \"allen\"\r\n}"
+								},
+								"url": {
+									"raw": "http://localhost:8084/book/add_index",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8084",
+									"path": [
+										"book",
+										"add_index"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "查询-按名称",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8084/book/java",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8084",
+									"path": [
+										"book",
+										"java"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "修改-根据id",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": \"666\",\r\n  \"name\": \"网易云课题java高级开发工程师微专业-update\",\r\n  \"author\": \"allen\"\r\n}"
+								},
+								"url": {
+									"raw": "http://localhost:8084/book/666",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8084",
+									"path": [
+										"book",
+										"666"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "删除",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8084/book/666",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8084",
+									"path": [
+										"book",
+										"666"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					],
+					"_postman_isSubFolder": true
 				},
 				{
-					"name": "删除索引",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"url": {
-							"raw": "http://localhost:8085/cloud/classroom/es/course/delete_index/course",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8085",
-							"path": [
-								"cloud",
-								"classroom",
-								"es",
-								"course",
-								"delete_index",
-								"course"
-							]
+					"name": "course",
+					"item": [
+						{
+							"name": "新增",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": \"111\",\r\n  \"name\": \"allen老师测试课程\",\r\n  \"image\": \"http://www.study.163.com\",\r\n  \"price\": 998.0,\r\n  \"synopsis\": \"\",\r\n  \"classification\": \"\",\r\n  \"teacherId\": \"\",\r\n  \"status\": 1,\r\n  \"endTime\": \"2019-08-15 19:18:07\",\r\n  \"startTime\": \"2019-07-15 19:18:07\"\r\n}"
+								},
+								"url": {
+									"raw": "http://localhost:8085/cloud/classroom/es/course/save",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8085",
+									"path": [
+										"cloud",
+										"classroom",
+										"es",
+										"course",
+										"save"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "根据id查询",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8084/cloud/classroom/es/course/get/123",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8084",
+									"path": [
+										"cloud",
+										"classroom",
+										"es",
+										"course",
+										"get",
+										"123"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "获取全部",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8085/cloud/classroom/es/course/get_all",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8085",
+									"path": [
+										"cloud",
+										"classroom",
+										"es",
+										"course",
+										"get_all"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "根据id删除",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "http://localhost:8084/cloud/classroom/es/course/delete/111",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8084",
+									"path": [
+										"cloud",
+										"classroom",
+										"es",
+										"course",
+										"delete",
+										"111"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "清空记录",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "http://localhost:8084/cloud/classroom/es/course/delete_all",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8084",
+									"path": [
+										"cloud",
+										"classroom",
+										"es",
+										"course",
+										"delete_all"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "搜索",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": \"111\",\r\n  \"name\": \"allen老师测试课程\",\r\n  \"image\": \"http://www.study.163.com\",\r\n  \"price\": 998.0,\r\n  \"synopsis\": \"\",\r\n  \"classification\": \"\",\r\n  \"teacherId\": \"\",\r\n  \"status\": 1,\r\n  \"endTime\": \"2019-08-15 19:18:07\",\r\n  \"startTime\": \"2019-07-15 19:18:07\"\r\n}"
+								},
+								"url": {
+									"raw": "http://localhost:8085/cloud/classroom/es/course/query/测试",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8085",
+									"path": [
+										"cloud",
+										"classroom",
+										"es",
+										"course",
+										"query",
+										"测试"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "高亮搜索",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8085/cloud/classroom/es/course/query_hit?keyword=测试",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8085",
+									"path": [
+										"cloud",
+										"classroom",
+										"es",
+										"course",
+										"query_hit"
+									],
+									"query": [
+										{
+											"key": "keyword",
+											"value": "测试"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "删除索引",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8084/cloud/classroom/es/course/delete_index/course",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8084",
+									"path": [
+										"cloud",
+										"classroom",
+										"es",
+										"course",
+										"delete_index",
+										"course"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					],
+					"_postman_isSubFolder": true
 				}
 			]
 		},
@@ -321,7 +467,50 @@
 					"response": []
 				},
 				{
-					"name": "释放优惠锁定",
+					"name": "删除优惠券",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInVzZXJJZCI6IjEiLCJuYW1lIjoiQW5keSIsImV4cCI6MTU2NDE2NTY3NX0.VaX3R3_plk5cb1ha0DAkPQN2F9F3XHEPG8JglFycAtLNm-Dv801xeZWVy6gEDFvH_tGDCsCLyqTLAWs0pAIjvvkQleNfyZ7euPJ0Itj63L_7hpfFuBXkJI_5TgVHkeBCgFIzlgpls2HQdGDAezMJ7IhFo912avSowyR4r7Jl2nc"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "couponId",
+									"value": "31421bd5-5047-4c90-a8de-2eac712b51ea",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8765/cloud-coupon-server/coupon/op/removeCoupon/123",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8765",
+							"path": [
+								"cloud-coupon-server",
+								"coupon",
+								"op",
+								"removeCoupon",
+								"123"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询优惠券列表",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -340,6 +529,62 @@
 							"path": [
 								"cloud-coupon-server",
 								"coupon",
+								"op",
+								"releaseCoupon"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "锁定优惠券",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInVzZXJJZCI6IjEiLCJuYW1lIjoiQW5keSIsImV4cCI6MTU2Mzk3MTEwOX0.jYQQufuS9hJN9LYCDhGS87Any_tF7kiqx6ekH5Rt3sNb0Lbe-7CiW93FfZlwwZF_suzanjFOkIKA4DLTehMl-BbdOfGmeKkr5bAP63AHa3q8ZD3TbSqoc3SpekW3PItnFJiXVkOZI71jX1ygQTfeQ0fxWLZDg_5H3gP_J3KA7nU"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8765/cloud-coupon-server/coupon/detail/op/lockCoupon",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8765",
+							"path": [
+								"cloud-coupon-server",
+								"coupon",
+								"detail",
+								"op",
+								"lockCoupon"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "释放优惠锁定",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInVzZXJJZCI6IjEiLCJuYW1lIjoiQW5keSIsImV4cCI6MTU2Mzk3MTEwOX0.jYQQufuS9hJN9LYCDhGS87Any_tF7kiqx6ekH5Rt3sNb0Lbe-7CiW93FfZlwwZF_suzanjFOkIKA4DLTehMl-BbdOfGmeKkr5bAP63AHa3q8ZD3TbSqoc3SpekW3PItnFJiXVkOZI71jX1ygQTfeQ0fxWLZDg_5H3gP_J3KA7nU"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8765/cloud-coupon-server/coupon/detail/op/releaseCoupon",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8765",
+							"path": [
+								"cloud-coupon-server",
+								"coupon",
+								"detail",
 								"op",
 								"releaseCoupon"
 							]

@@ -13,12 +13,12 @@ public class TableResultResponse<T> extends BaseResponse {
 
     TableData<T> data;
 
-    public TableResultResponse(long total, List<T> rows) {
-        this.data = new TableData<T>(total, rows);
-    }
-
     public TableResultResponse() {
         this.data = new TableData<T>();
+    }
+
+    public TableResultResponse(long total, List<T> rows) {
+        this.data = new TableData<T>(total, rows);
     }
 
     TableResultResponse<T> total(int total) {

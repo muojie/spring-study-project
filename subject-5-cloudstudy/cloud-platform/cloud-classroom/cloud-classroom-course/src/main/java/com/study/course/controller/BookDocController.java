@@ -17,17 +17,17 @@ public class BookDocController {
     @Autowired
     BookRepository bookRepository;
 
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public ResponseEntity<Iterable> getAll() {
+        Iterable<Book> all = bookRepository.findAll();
+        return new ResponseEntity<>(all, HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/add_index", method = RequestMethod.POST)
     public ResponseEntity<String> indexDoc(@RequestBody Book book) {
         System.out.println("book===" + book);
         bookRepository.save(book);
         return new ResponseEntity<>("save executed!", HttpStatus.OK);
-    }
-
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public ResponseEntity<Iterable> getAll() {
-        Iterable<Book> all = bookRepository.findAll();
-        return new ResponseEntity<>(all, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{name}", method = RequestMethod.GET)
@@ -36,7 +36,7 @@ public class BookDocController {
         return new ResponseEntity<>(books, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/{id}", method = RequestMethod.POST)
     public ResponseEntity<Book> updateBook(@PathVariable("id") String id,
                                            @RequestBody Book updateBook) {
         Book book = bookRepository.findBookById(id);

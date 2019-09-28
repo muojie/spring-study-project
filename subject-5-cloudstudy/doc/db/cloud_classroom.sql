@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50722
 File Encoding         : 65001
 
-Date: 2019-09-25 17:26:09
+Date: 2019-09-28 22:14:31
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -89,8 +89,8 @@ INSERT INTO `course_order` VALUES ('12', '4', '5', '18688888888', '0', '66', '20
 -- ----------------------------
 DROP TABLE IF EXISTS `user_study`;
 CREATE TABLE `user_study` (
-  `id` varchar(50) NOT NULL COMMENT '用户学习ID',
-  `course_id` varchar(50) DEFAULT NULL COMMENT '课程id',
+  `id` int(11) NOT NULL COMMENT '用户学习ID',
+  `course_id` int(11) DEFAULT NULL COMMENT '课程id',
   `user_id` int(11) DEFAULT NULL COMMENT '用户id',
   `start_time` datetime DEFAULT NULL COMMENT '学员正式开始时间',
   PRIMARY KEY (`id`)
@@ -99,10 +99,10 @@ CREATE TABLE `user_study` (
 -- ----------------------------
 -- Records of user_study
 -- ----------------------------
-INSERT INTO `user_study` VALUES ('3c0fe04e-7bdc-11e9-9379-0242ac110003', '1122323c0-7717-11e9-9379-0242ac110003', '6', '2019-05-21 23:22:24');
-INSERT INTO `user_study` VALUES ('65e96ff8-8157-11e9-8f13-0242ac110002', '722262d4-8156-11e9-8f13-0242ac110002', '6', '2019-05-28 09:46:38');
-INSERT INTO `user_study` VALUES ('6c7c9f3b-7baf-11e9-9379-0242ac110003', '73b780cb-755d-2344-9279-0242ac110003', '6', '2019-05-21 18:02:26');
-INSERT INTO `user_study` VALUES ('8821ad55-7e30-11e9-8f13-0242ac110002', 'b3df8d20-7e2f-11e9-8f13-0242ac110002', '27', '2019-05-24 22:30:52');
-INSERT INTO `user_study` VALUES ('8d917727-860e-11e9-8f13-0242ac110002', '1122323c0-7717-11e9-9379-0242ac110003', '5', '2019-06-03 09:47:46');
-INSERT INTO `user_study` VALUES ('a4ce07f0-7aff-11e9-9379-0242ac110003', '73b780cb-755d-2344-9279-0242ac110003', '6', '2019-05-20 21:03:16');
-INSERT INTO `user_study` VALUES ('ddb30610-7bbd-11e9-9379-0242ac110003', '73b780cb-755d-2344-9279-0242ac110003', '6', '2019-05-21 19:45:48');
+INSERT INTO `user_study` VALUES ('2', '1', '6', '2019-05-21 23:22:24');
+INSERT INTO `user_study` VALUES ('3', '1', '6', '2019-05-28 09:46:38');
+INSERT INTO `user_study` VALUES ('4', '1', '6', '2019-05-21 18:02:26');
+INSERT INTO `user_study` VALUES ('5', '1', '27', '2019-05-24 22:30:52');
+INSERT INTO `user_study` VALUES ('6', '1', '5', '2019-06-03 09:47:46');
+INSERT INTO `user_study` VALUES ('7', '2', '6', '2019-05-20 21:03:16');
+INSERT INTO `user_study` VALUES ('8', '2', '6', '2019-05-21 19:45:48');

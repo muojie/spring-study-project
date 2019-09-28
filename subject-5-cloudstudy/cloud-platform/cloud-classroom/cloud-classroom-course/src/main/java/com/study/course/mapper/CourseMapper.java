@@ -9,13 +9,13 @@ import java.util.List;
 @Component
 public interface CourseMapper {
 
-    int deleteByPrimaryKey(String id);
+    int deleteByPrimaryKey(Long id);
 
     int insert(Course record);
 
     int insertSelective(Course record);
 
-    Course selectByPrimaryKey(String id);
+    Course selectByPrimaryKey(Long id);
 
     int updateByPrimaryKeySelective(Course record);
 

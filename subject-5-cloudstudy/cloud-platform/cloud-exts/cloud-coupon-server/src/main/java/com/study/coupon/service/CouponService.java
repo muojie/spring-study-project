@@ -59,7 +59,7 @@ public class CouponService {
         }
         // 2. 增加记录
         TbCouponDetail tbCouponDetail = new TbCouponDetail();
-        tbCouponDetail.setCouponDetailId(redisGenerateIdService.getId());
+        tbCouponDetail.setId(redisGenerateIdService.getId());
         tbCouponDetail.setCouponId(couponId);
         tbCouponDetail.setUserId(Integer.valueOf(userId));
         tbCouponDetail.setCouponDetailStatus(CouponConstants.CouponDetailStatusEnum.UnUsed.getStatus()); // 0 - 未使用
@@ -71,7 +71,7 @@ public class CouponService {
      * 新增
      */
     public void addCoupon(TbCoupon tbCoupon) {
-        tbCoupon.setCouponId(redisGenerateIdService.getId());
+        tbCoupon.setId(redisGenerateIdService.getId());
         tbCouponMapper.insert(tbCoupon);
     }
 
@@ -89,8 +89,8 @@ public class CouponService {
      */
     public List<TbCoupon> queryCouponList() {
         TbCoupon example = new TbCoupon();
-        example.setStartTime(new Date());
-        example.setEndTime(new Date());
+        //example.setStartTime(new Date());
+        //example.setEndTime(new Date());
         List<TbCoupon> tbCoupons = tbCouponMapper.selectByExample(example);
         return tbCoupons;
     }
@@ -103,7 +103,7 @@ public class CouponService {
      */
     public TbCoupon queryCouponById(Long couponId) {
         TbCoupon example = new TbCoupon();
-        example.setCouponId(couponId);
+        example.setId(couponId);
         List<TbCoupon> tbCoupons = tbCouponMapper.selectByExample(example);
         return tbCoupons == null ? null : tbCoupons.get(0);
     }

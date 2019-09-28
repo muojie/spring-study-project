@@ -7,11 +7,11 @@ import java.util.Date;
 @Data
 public class TbCouponDetail {
 
-    private Long couponDetailId;
+    private Long id;
 
     private Long couponId;
 
-    private String couponDetailStatus;
+    private Integer couponDetailStatus;
 
     private Integer userId;
 

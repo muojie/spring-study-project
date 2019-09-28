@@ -3,8 +3,8 @@
 <mapper namespace="com.study.coupon.mapper.TbCouponMapper" >
 
   <resultMap id="BaseResultMap" type="com.study.coupon.bean.TbCoupon" >
-    <result column="coupon_id" property="couponId" jdbcType="INTEGER" />
-    <result column="coupon_type" property="couponType" jdbcType="VARCHAR" />
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="coupon_type" property="couponType" jdbcType="INTEGER" />
     <result column="coupon_content" property="couponContent" jdbcType="VARCHAR" />
     <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
     <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
@@ -12,7 +12,7 @@
   </resultMap>
 
   <sql id="Base_Column_List" >
-    coupon_id, coupon_type, coupon_content, start_time, end_time, coupon_sum
+    id, coupon_type, coupon_content, start_time, end_time, coupon_sum
   </sql>
 
   <insert id="insert" parameterType="com.study.coupon.bean.TbCoupon" >
@@ -27,49 +27,36 @@
   </insert>
 
   <delete id="deleteById" parameterType="java.lang.Long" >
-    delete from tb_coupon where id = #{couponId}
+    delete from tb_coupon where id = #{id}
   </delete>
 
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.study.coupon.bean.TbCoupon" >
     select
-    <if test="distinct" >
-      distinct
-    </if>
     <include refid="Base_Column_List" />
-    from tb_coupon
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
+    <![CDATA[
+    from tb_coupon where start_time <= NOW() and end_time >= NOW()
+     ]]>
   </select>
-
 
   <update id="updateByExampleSelective" parameterType="map" >
     update tb_coupon
     <set >
-      <if test="record.couponId != null" >
-        coupon_id = #{record.couponId,jdbcType=VARCHAR},
-      </if>
       <if test="record.couponType != null" >
-        coupon_type = #{record.couponType,jdbcType=VARCHAR},
+        coupon_type = #{record.couponType},
       </if>
       <if test="record.couponContent != null" >
-        coupon_content = #{record.couponContent,jdbcType=VARCHAR},
+        coupon_content = #{record.couponContent},
       </if>
       <if test="record.startTime != null" >
-        start_time = #{record.startTime,jdbcType=TIMESTAMP},
+        start_time = #{record.startTime},
       </if>
       <if test="record.endTime != null" >
-        end_time = #{record.endTime,jdbcType=TIMESTAMP},
+        end_time = #{record.endTime},
       </if>
       <if test="record.couponSum != null" >
-        coupon_sum = #{record.couponSum,jdbcType=INTEGER},
+        coupon_sum = #{record.couponSum},
       </if>
     </set>
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
+    where id = #{record.id}
   </update>
 </mapper>

@@ -40,7 +40,7 @@ public class CourseEsSearchServiceImpl extends BaseSearchServiceImpl<Course> imp
     }
 
     @Override
-    public void delete(String id) {
+    public void delete(Long id) {
         courseDocumentRepository.deleteById(id);
     }
 
@@ -50,8 +50,8 @@ public class CourseEsSearchServiceImpl extends BaseSearchServiceImpl<Course> imp
     }
 
     @Override
-    public Course getById(String id) {
-        return (Course) courseDocumentRepository.findById(id).get();
+    public Course getById(Long id) {
+        return courseDocumentRepository.findById(id).get();
     }
 
     @Override

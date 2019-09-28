@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.study.order.mapper.OrderMapper" >
+
   <resultMap id="BaseResultMap" type="com.study.order.bean.Order" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="order_time" property="orderTime" jdbcType="TIMESTAMP" />
@@ -10,6 +11,7 @@
     <result column="user_id" property="userId" jdbcType="INTEGER" />
     <result column="course_id" property="courseId" jdbcType="INTEGER" />
   </resultMap>
+
   <sql id="Base_Column_List" >
     id, order_time, phone, state, total, user_id, course_id
   </sql>
@@ -121,6 +123,7 @@
       </if>
     </trim>
   </insert>
+
   <update id="updateByPrimaryKeySelective" parameterType="com.study.order.bean.Order" >
     update course_order
     <set >
@@ -140,19 +143,10 @@
         user_id = #{userId,jdbcType=INTEGER},
       </if>
       <if test="courseId != null" >
-        course_id = #{courseId,jdbcType=VARCHAR},
+        course_id = #{courseId},
       </if>
     </set>
-    where id = #{id,jdbcType=VARCHAR}
+    where id = #{id}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.study.order.bean.Order" >
-    update course_order
-    set order_time = #{orderTime,jdbcType=TIMESTAMP},
-      phone = #{phone,jdbcType=VARCHAR},
-      state = #{state,jdbcType=INTEGER},
-      total = #{total,jdbcType=DOUBLE},
-      user_id = #{userId,jdbcType=INTEGER},
-      course_id = #{courseId,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=VARCHAR}
-  </update>
+
 </mapper>

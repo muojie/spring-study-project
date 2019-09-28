@@ -43,7 +43,7 @@ public class CourseDocController {
      * @return
      */
     @GetMapping("get/{id}")
-    public Course getById(@PathVariable String id) {
+    public Course getById(@PathVariable Long id) {
         return esSearchService.getById(id);
     }
 
@@ -63,7 +63,7 @@ public class CourseDocController {
      * @return
      */
     @DeleteMapping("delete/{id}")
-    public String delete(@PathVariable String id) {
+    public String delete(@PathVariable Long id) {
         esSearchService.delete(id);
         return "success";
     }
@@ -74,7 +74,7 @@ public class CourseDocController {
      * @return
      */
     @DeleteMapping("delete_all")
-    public String deleteAll(@PathVariable String id) {
+    public String deleteAll(@PathVariable Long id) {
         esSearchService.deleteAll();
         return "success";
     }

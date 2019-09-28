@@ -3,9 +3,9 @@
 <mapper namespace="com.study.coupon.mapper.TbCouponDetailMapper">
 
     <resultMap id="BaseResultMap" type="com.study.coupon.bean.TbCouponDetail">
-        <id column="coupon_detail_id" property="couponDetailId" jdbcType="INTEGER"/>
+        <id column="id" property="id" jdbcType="INTEGER"/>
         <result column="coupon_id" property="couponId" jdbcType="INTEGER"/>
-        <result column="coupon_detail_status" property="couponDetailStatus" jdbcType="VARCHAR"/>
+        <result column="coupon_detail_status" property="couponDetailStatus" jdbcType="INTEGER"/>
         <result column="user_id" property="userId" jdbcType="INTEGER"/>
         <result column="order_id" property="orderId" jdbcType="INTEGER"/>
         <result column="start_time" property="startTime" jdbcType="TIMESTAMP"/>
@@ -13,7 +13,7 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-      coupon_detail_id, coupon_id, coupon_detail_status, user_id, order_id, start_time, end_time
+      id, coupon_id, coupon_detail_status, user_id, order_id, start_time, end_time
     </sql>
 
     <insert id="insert" parameterType="com.study.coupon.bean.TbCouponDetail">
@@ -29,41 +29,26 @@
     </insert>
 
     <delete id="deleteByTbCouponDetail" parameterType="com.study.coupon.bean.TbCouponDetail">
-        delete from tb_coupon_detail where
-        <if test="_parameter != null">
-            <include refid="Example_Where_Clause"/>
-        </if>
+        delete from tb_coupon_detail where id = #{id}
     </delete>
 
     <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.study.coupon.bean.TbCouponDetail">
         select
-        <if test="distinct">
-            distinct
-        </if>
         <include refid="Base_Column_List"/>
         from tb_coupon_detail
-        <if test="_parameter != null">
-            <include refid="Example_Where_Clause"/>
-        </if>
-        <if test="orderByClause != null">
-            order by ${orderByClause}
-        </if>
     </select>
 
-    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
         select
         <include refid="Base_Column_List"/>
-        from tb_coupon_detail
-        where coupon_detail_id = #{couponDetailId}
+        from tb_coupon_detail where id = #{id}
     </select>
-
-
 
     <update id="updateByExampleSelective" parameterType="map">
         update tb_coupon_detail
         <set>
-            <if test="record.couponDetailId != null">
-                coupon_detail_id = #{record.couponDetailId},
+            <if test="record.id != null">
+                id = #{record.id},
             </if>
             <if test="record.couponId != null">
                 coupon_id = #{record.couponId},
@@ -84,9 +69,6 @@
                 end_time = #{record.endTime},
             </if>
         </set>
-        <if test="_parameter != null">
-            <include refid="Update_By_Example_Where_Clause"/>
-        </if>
     </update>
 
     <update id="updateByPrimaryKeySelective" parameterType="com.study.coupon.bean.TbCouponDetail">
@@ -111,7 +93,7 @@
                 end_time = #{endTime},
             </if>
         </set>
-        where coupon_detail_id = #{couponDetailId}
+        where id = #{id}
     </update>
 
     <update id="updateByPrimaryKey" parameterType="com.study.coupon.bean.TbCouponDetail">
@@ -122,7 +104,7 @@
       order_id = #{orderId},
       start_time = #{startTime},
       end_time = #{endTime}
-    where coupon_detail_id = #{couponDetailId}
+    where id = #{id}
   </update>
 
 </mapper>

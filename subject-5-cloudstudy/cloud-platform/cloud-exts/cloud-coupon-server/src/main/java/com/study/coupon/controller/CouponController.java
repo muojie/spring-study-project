@@ -5,10 +5,13 @@ import com.study.coupon.service.CouponService;
 import com.study.security.common.context.BaseContextHandler;
 import com.study.security.common.msg.BaseResponse;
 import com.study.security.common.msg.TableResultResponse;
+import com.study.security.lock.RedissLockConfig;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
+import org.redisson.api.RLock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,9 +26,13 @@ import java.util.List;
 @Api(description = "优惠券接口")
 @RestController
 @RequestMapping("/coupon/op/")
+@Slf4j
 public class CouponController {
     @Autowired
     CouponService couponService;
+
+    @Autowired
+    RedissLockConfig redissLock;
 
     @ApiOperation(value = "领取优惠券",
             notes = "领取优惠券，简单规则：一个人同一张优惠券只能领取一次。如果并发很大，就提示稍后发放到您的账户(异步)")
@@ -38,7 +45,22 @@ public class CouponController {
         String userId = BaseContextHandler.getUserID();
         // TODO 测试代码，固定用户ID
         // userId = "99999";
-        boolean success = couponService.acquire(couponId, userId);
+
+        boolean success = false;
+        // 获取redisson分布式锁
+        RLock lock = redissLock.getRedissonLock("couponLock");
+        try {
+            // 开始枷锁
+            lock.lock();  // 3秒 < 5秒, 开启另一个线程：查看锁是否将要超时，它会向redis申请延长超时时间
+            // 执行业务
+            success = couponService.acquire(couponId, userId);
+        } catch (Exception e) {
+            log.error("领取优惠券服务的时候报错了，错误信息为:{}", e.getMessage());
+        } finally {
+            // 解锁
+            lock.unlock();
+        }
+
         if (!success) {
             return new BaseResponse(400, "没抢到优惠券");
         }

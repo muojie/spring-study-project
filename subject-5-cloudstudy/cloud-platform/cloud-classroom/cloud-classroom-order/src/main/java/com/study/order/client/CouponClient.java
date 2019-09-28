@@ -16,7 +16,6 @@ public interface CouponClient {
      * 锁定优惠
      */
     @GetMapping(value = "/coupon/detail/op/lockCoupon")
-    @Hmily
     public Object lockCoupon(@RequestParam Long couponDetailId, @RequestParam Long orderId, @RequestParam Long orderUserId);
 
     /**

@@ -76,7 +76,7 @@ public class CourseController {
      * @return
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public Course getCourse(@PathVariable String id) {
+    public Course getCourse(@PathVariable Long id) {
         return courseService.getCourse(id);
     }
 
@@ -134,7 +134,7 @@ public class CourseController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public RespBean deleteCourse(@PathVariable String id) {
+    public RespBean deleteCourse(@PathVariable Long id) {
         if (courseService.deleteCourse(id) == 1) {
             try {
                 //cloudClassroomEsClient.deleteEsCourse(id);

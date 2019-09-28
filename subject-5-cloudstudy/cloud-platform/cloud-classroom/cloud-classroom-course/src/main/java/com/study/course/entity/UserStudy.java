@@ -9,7 +9,7 @@ public class UserStudy {
 
     private Long id;
 
-    private String courseId;
+    private Long courseId;
 
     private Integer userId;
 

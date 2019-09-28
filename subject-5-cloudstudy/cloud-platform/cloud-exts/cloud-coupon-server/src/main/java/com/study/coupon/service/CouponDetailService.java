@@ -28,7 +28,6 @@ public class CouponDetailService {
      * @param orderId        订单号
      * @param userId         用户ID
      */
-    @Hmily(confirmMethod = "confirmLockCouponDetail", cancelMethod = "canceLockCouponDetail")
     public TbCouponDetail lockCouponDetail(Long couponDetailId, Long orderId, String userId) {
         TbCouponDetail example = new TbCouponDetail();
         example.setCouponId(couponDetailId);
@@ -46,16 +45,6 @@ public class CouponDetailService {
         return null;
     }
 
-    public void confirmLockCouponDetail(String couponDetailId, String orderId, String userId) {
-        // 课后作业
-        log.info("=========进行订单confirm操作完成================");
-    }
-
-    public void canceLockCouponDetail(String couponDetailId, String orderId, String userId) {
-        // 课后作业
-        log.info("=========进行订单cancel操作完成================");
-    }
-
     /**
      * 将订单与该用户对应的优惠券解除绑定
      *
@@ -65,7 +54,7 @@ public class CouponDetailService {
      */
     public TbCouponDetail releaseCouponDetail(Long couponDetailId, Long orderId, String userId) {
         TbCouponDetail example = new TbCouponDetail();
-        example.setCouponDetailId(couponDetailId);
+        example.setId(couponDetailId);
         example.setOrderId(orderId);
         example.setCouponDetailStatus(CouponDetailStatusEnum.Used.getStatus());
         example.setUserId(Integer.parseInt(userId));

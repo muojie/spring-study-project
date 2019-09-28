@@ -24,7 +24,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * 3. 使用优惠，记录对应的订单号
  * 4. 优惠券过期采用任务调度即可，通常都是整天计算的。 同时，对于不再需要的数据，可以采取历史数据隔离的方式，把数据挪走
  *
- * 定时任务调度框架：quartz xxl-job TBSchedule elastic-job
+ * 定时任务调度框架：quartz xxl-job TBSchedule elastic-job easySchedule
  */
 @SpringBootApplication(exclude = {MongoAutoConfiguration.class, MongoDataAutoConfiguration.class})
 @ComponentScan(basePackages = {"com.study.security", "com.study.coupon"})

@@ -22,7 +22,7 @@ public interface CourseEsSearchService extends BaseSearchService<Course> {
      * @param id
      * @return
      */
-    Course getById(String id);
+    Course getById(Long id);
 
     /**
      * 查询全部
@@ -35,7 +35,7 @@ public interface CourseEsSearchService extends BaseSearchService<Course> {
      *
      * @param id
      */
-    void delete(String id);
+    void delete(Long id);
 
     /**
      * 清空索引

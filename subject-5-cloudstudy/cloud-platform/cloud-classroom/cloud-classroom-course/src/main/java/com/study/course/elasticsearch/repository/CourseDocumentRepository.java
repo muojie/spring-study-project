@@ -18,6 +18,6 @@ import org.springframework.data.elasticsearch.repository.ElasticsearchRepository
  * @Date 2019/7/25 23:02
  * @Version 1.0
  */
-//@Repository
-public interface CourseDocumentRepository extends ElasticsearchRepository<Course, String> {
+public interface CourseDocumentRepository extends ElasticsearchRepository<Course, Long> {
+
 }

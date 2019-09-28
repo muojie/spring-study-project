@@ -7,9 +7,9 @@ import java.util.Date;
 @Data
 public class TbCoupon {
 
-    private Long couponId;
+    private Long id;
 
-    private String couponType;
+    private Integer couponType;
 
     private String couponContent;
 

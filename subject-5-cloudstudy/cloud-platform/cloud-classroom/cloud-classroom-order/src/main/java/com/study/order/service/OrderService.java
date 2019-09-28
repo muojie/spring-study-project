@@ -12,6 +12,7 @@ import com.study.security.common.msg.TableResultResponse;
 import com.study.security.id.IGenerateIdService;
 import lombok.extern.slf4j.Slf4j;
 import org.dromara.hmily.annotation.Hmily;
+import org.dromara.hmily.common.exception.HmilyRuntimeException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,29 +45,23 @@ public class OrderService {
      * @param order
      * @return
      */
-    @Hmily(confirmMethod = "confirmAddOrder", cancelMethod = "cancelAddOrder")
     public int addOrder(Order order) {
         final Long orderId = redisGenerateIdService.getId();
         order.setId(orderId);
+        order.setState(OrderStatusEnum.NOT_PAY.getCode()); // 设置状态为未支付...
 
         // 查询个人优惠券
         TableResultResponse result = couponClient.getCouponDetailByUserId();
         // 选择使用那张优惠券，就是得到优惠券id
 
-        // 使用优惠券
-        couponClient.lockCoupon(1L, orderId, 1L);
-
-        return orderMapper.insert(order);
-    }
-
-    public void confirmAddOrder(Order order) {
-        // 课后作业
-        log.info("=========进行订单confirm操作完成================");
-    }
-
-    public void cancelAddOrder(Order order) {
-        // 课后作业
-        log.info("=========进行订单cancel操作完成================");
+        final int rows = orderMapper.insert(order);
+        if (rows > 0) {
+            // 使用优惠券
+            couponClient.lockCoupon(1L, orderId, 1L);
+            // 发起支付
+            payOrder(orderId);
+        }
+        return rows;
     }
 
     public List<Order> getAllOrder() {
@@ -116,21 +111,22 @@ public class OrderService {
         return orders;
     }
 
-    public int payOrder(Long orderId) {
+    /**
+     * 订单支付
+     * @param orderId
+     * @return
+     */
+    @Hmily(confirmMethod = "confirmOrderStatus", cancelMethod = "cancelOrderStatus")
+    public void payOrder(Long orderId) {
         Order orderInDb = this.getOrder(orderId);
-        if (orderInDb.getState() == 0) {
-            Order newOrder = new Order();
-            newOrder.setId(orderId);
-            newOrder.setState(OrderStatusEnum.PAY_SUCCESS.getCode());
-            this.updateOrder(newOrder);
-            UserStudy userStudy = new UserStudy();
-            userStudy.setCourseId(orderInDb.getCourseId());
-            userStudy.setUserId(orderInDb.getUserId());
-            userStudy.setStartTime(new Date(System.currentTimeMillis()));
-            courseService.addUserStudy(userStudy);
-            return 1;
+        orderInDb.setState(OrderStatusEnum.PAYING.getCode()); // 设置状态为支付中...
+        orderMapper.updateByPrimaryKeySelective(orderInDb);
+
+        // TCC -> Try
+        // 支付回调结果: 1:支付成功; 2:支付失败
+        if ("支付回调结果".equals("支付")) {
+            throw new HmilyRuntimeException("支付失败！");
         }
-        return 2;
     }
 
     public int payOrderUsingMq(Long orderId) {
@@ -147,6 +143,30 @@ public class OrderService {
         sender.topicSend(userStudyJsonStr);
 //        courseService.addUserStudy(userStudy);
         return 1;
+    }
+
+    public void confirmOrderStatus(Long orderId) {
+        Order orderInDb = this.getOrder(orderId);
+        orderInDb.setState(OrderStatusEnum.PAY_SUCCESS.getCode()); // 设置状态为支付中...
+        orderMapper.updateByPrimaryKeySelective(orderInDb);
+
+        UserStudy userStudy = new UserStudy();
+        userStudy.setCourseId(orderInDb.getCourseId());
+        userStudy.setUserId(orderInDb.getUserId());
+        userStudy.setStartTime(new Date(System.currentTimeMillis()));
+        courseService.addUserStudy(userStudy);
+
+        // 课后作业
+        log.info("=========进行订单confirm操作完成================");
+    }
+
+    public void cancelOrderStatus(Long orderId) {
+        Order orderInDb = this.getOrder(orderId);
+        orderInDb.setState(OrderStatusEnum.PAY_FAIL.getCode()); // 设置状态为支付失败...
+        orderMapper.updateByPrimaryKeySelective(orderInDb);
+
+        // 课后作业
+        log.info("=========进行订单cancel操作完成================");
     }
 
 }

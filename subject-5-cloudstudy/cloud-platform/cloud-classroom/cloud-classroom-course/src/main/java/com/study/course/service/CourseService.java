@@ -38,7 +38,7 @@ public class CourseService {
         return courseMapper.getCountByKey(name);
     }
 
-    public Course getCourse(String id) {
+    public Course getCourse(Long id) {
         return courseMapper.selectByPrimaryKey(id);
     }
 
@@ -48,7 +48,7 @@ public class CourseService {
         return courseMapper.updateByPrimaryKeySelective(course);
     }
 
-    public int deleteCourse(String id) {
+    public int deleteCourse(Long id) {
         return courseMapper.deleteByPrimaryKey(id);
     }
 

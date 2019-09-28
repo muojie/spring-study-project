@@ -5,15 +5,15 @@ public class CouponConstants {
      * 1-未使用 2-已使用 3-已过期 4-锁定  99-异常
      */
     public static enum CouponDetailStatusEnum {
-        UnUsed("1"), Used("2"), Lock("3"), Exp("4"), Exception("99");
+        UnUsed(1), Used(2), Lock(3), Exp(4), Exception(99);
 
-        public String getStatus() {
+        public Integer getStatus() {
             return status;
         }
 
-        private final String status;
+        private final Integer status;
 
-        private CouponDetailStatusEnum(String status) {
+        private CouponDetailStatusEnum(Integer status) {
             this.status = status;
         }
 

@@ -16,8 +16,6 @@ public interface OrderMapper {
 
     int updateByPrimaryKeySelective(Order record);
 
-    int updateByPrimaryKey(Order record);
-
     List<Order> getOrderByUserId(Integer userId);
 
     List<Order> getAllOrder();

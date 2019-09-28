@@ -20,22 +20,18 @@ public class OrderController<add> {
     private OrderService orderService;
 
     /**
-     * 订单支付
+     * 订单支付入口
      *
      * @param orderId
      * @return
      */
     @GetMapping(value = "/pay/order")
     public RespBean payOrder(Long orderId) {
-        int userId = Integer.valueOf(JwtUtil.getUserId());
-        int result = orderService.payOrder(orderId);
-        if (result == 1) {
-            return RespBean.ok("购买成功!");
-        }
-        if (result == 2) {
-            return RespBean.error("不能重复购买!");
-        }
-        return RespBean.error("购买失败!");
+        // int userId = Integer.valueOf(JwtUtil.getUserId());
+
+        orderService.payOrder(orderId);
+
+        return RespBean.ok("购买成功!");
     }
 
     /**
@@ -67,11 +63,10 @@ public class OrderController<add> {
     public RespBean addOrder(@RequestBody Order order) {
         /* 1. 查看课程，从课程详情页面点击加入课程；传递课程id到订单生成页面
            2. 在订单生成页面选择使用优惠券来减扣课程价格（总价-优惠=实价）
-           3. 生成订单（下单），同时要调用订单服务生成订单和优惠券服务锁定优惠券；该处需要使用tcc分布式事务
-           4. 下单成功，调用支付接口支付。支付成功回调（修改订单状态，扣减库存；同样也需要分布式事务）
+           3. 生成订单（下单），同时要调用订单服务生成订单和优惠券服务锁定优惠券；
+           4. 下单成功，调用支付接口支付。支付成功回调（修改订单状态，扣账号余额(如有库存就扣减库存)；同样也需要分布式事务）
            5. 查看个人订单/订单详情
         */
-
         if (orderService.addOrder(order) == 1) {
             return RespBean.ok("添加成功!");
         }

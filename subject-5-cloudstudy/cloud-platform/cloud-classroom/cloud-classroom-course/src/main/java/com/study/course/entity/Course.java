@@ -16,7 +16,7 @@ import java.util.Date;
  * @version 0.1
  * @date 2018/12/13 15:22
  */
-@Document(indexName = "order", type = "doc")
+@Document(indexName = "course", type = "doc")
 // 注意：由于我们部署的es是使用docker部署的没有添加ik分词器，所以启动会有一个error错误。可以在容器中添加分词器解决该问题
 @Mapping(mappingPath = "courseIndex.json") // 解决IK分词不能使用问题
 @Data
